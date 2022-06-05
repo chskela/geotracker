@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Geo tracker</string>
+    <string name="app_name" translatable="false">Geo tracker</string>
+    <string name="get_started">Get Started</string>
+    <string name="to_finish_work">To finish work</string>
 </resources>
