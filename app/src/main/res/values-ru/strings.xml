@@ -2,4 +2,6 @@
 <resources>
     <string name="get_started">Начать работу</string>
     <string name="to_finish_work">Завершить работу</string>
+    <!--Permission Messages-->
+    <string name="permission_location_rationale">Чтобы получить текущее местоположение, необходимо предоставить разрешение на определение местоположения.</string>
 </resources>

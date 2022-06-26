@@ -2,4 +2,9 @@
     <string name="app_name" translatable="false">Geo tracker</string>
     <string name="get_started">Get Started</string>
     <string name="to_finish_work">To finish work</string>
+    <!--Permission Messages-->
+    <string name="permission_location_rationale">In order to get the current location, we require the location permission to be granted.</string>
+    <string name="notification_title">notification_title</string>
+    <string name="notification_message">notification_message</string>
+    <string name="ticker_text">ticker_text</string>
 </resources>
