@@ -3,16 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.chskela.geotracker">
 
-    <!-- Always include this permission -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- Include only if your app benefits from precise location access. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- Required only when requesting background location access on
-     Android 10 (API level 29) and higher. -->
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-
 
     <application
         android:allowBackup="true"
@@ -35,10 +29,13 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".tracker.service.MyService"
-            android:exported="false"
-            android:stopWithTask="false"/>
-
+<!--        <service android:name=".tracker.service.MyService"-->
+<!--            android:exported="false"-->
+<!--            android:stopWithTask="false"/>-->
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:foregroundServiceType="location"
+            tools:node="merge" />
     </application>
 
 </manifest>
