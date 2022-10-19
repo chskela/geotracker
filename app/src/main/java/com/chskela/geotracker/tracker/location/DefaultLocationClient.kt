@@ -31,8 +31,7 @@ class DefaultLocationClient(
                 throw LocationClient.LocationException("Missing location permission")
             }
 
-            val locationManager =
-                context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            val locationManager = context.getSystemService(LocationManager::class.java)
 
             val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
             val isNetworkEnabled =
