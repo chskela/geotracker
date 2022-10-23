@@ -48,7 +48,7 @@ class LocationService : Service() {
     }
 
     private fun start() {
-        val notification = NotificationCompat.Builder(this, "location")
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Tracking location")
             .setContentText("Location: null")
             .setSmallIcon(R.drawable.icon)
@@ -77,5 +77,6 @@ class LocationService : Service() {
     companion object {
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"
+        const val CHANNEL_ID = "LOCATION"
     }
 }
