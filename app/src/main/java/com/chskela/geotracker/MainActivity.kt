@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
                 LocationService.CHANNEL_ID, "location", NotificationManager.IMPORTANCE_LOW
             )
         )
-//        onRequestPermissionsResult()
+
         val mainScreenViewModel: MainScreenViewModel by viewModels()
         setContent {
             GeoTrackerTheme {
