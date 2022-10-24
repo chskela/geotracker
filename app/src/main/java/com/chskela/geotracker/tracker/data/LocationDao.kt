@@ -11,5 +11,5 @@ interface LocationDao {
     fun save(location: Location)
 
     @Query("SELECT * FROM location WHERE is_send = 0")
-    fun getListLocationNotSend()
+    fun getListLocationNotSend() : List<Location>
 }
