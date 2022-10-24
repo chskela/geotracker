@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Location(
-    @PrimaryKey val uid: Long,
+    @PrimaryKey(autoGenerate = true) val uid: Long,
 
     @ColumnInfo(name = "uid_phone") val uidPhone: String,
 
