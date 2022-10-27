@@ -5,11 +5,11 @@ import android.app.Service
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.chskela.geotracker.GeoTrackerApplication
 import com.chskela.geotracker.R
 import com.chskela.geotracker.tracker.data.Location
+import com.chskela.geotracker.tracker.data.LocationRepository
 import com.chskela.geotracker.tracker.location.DefaultLocationClient
 import com.chskela.geotracker.tracker.location.LocationClient
 import com.google.android.gms.location.LocationServices
@@ -27,6 +27,7 @@ class LocationService : Service() {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private lateinit var locationClient: LocationClient
+    private lateinit var repository: LocationRepository
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -34,6 +35,7 @@ class LocationService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        repository = (application as GeoTrackerApplication).repository
         locationClient = DefaultLocationClient(
             applicationContext,
             LocationServices.getFusedLocationProviderClient(applicationContext)
@@ -54,8 +56,6 @@ class LocationService : Service() {
     }
 
     private fun start() {
-        val repository = (application as GeoTrackerApplication).repository
-
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Tracking location")
             .setContentText("Location: null")
@@ -68,22 +68,24 @@ class LocationService : Service() {
             .catch { e -> e.printStackTrace() }
             .onEach { location ->
                 val dateTime = formatDate(Calendar.getInstance().time)
-                Log.i("LocationService", "start: $dateTime")
+                val latitude = location.latitude
+                val longitude = location.longitude
                 val candidate = Location(
                     uidPhone = "test",
                     date = dateTime,
-                    latitude = location.latitude.toLong(),
-                    longitude = location.longitude.toLong()
+                    latitude = latitude,
+                    longitude = longitude
                 )
                 repository.save(candidate)
+
                 val updateNotification = notification.setContentText(
-                    "Location: ${location.latitude}, ${location.longitude}"
+                    "Location: $latitude, $longitude"
                 )
-                notificationManager.notify(1, updateNotification.build())
+                notificationManager.notify(NOTIFICATION_ID, updateNotification.build())
             }
             .launchIn(serviceScope)
 
-        startForeground(1, notification.build())
+        startForeground(NOTIFICATION_ID, notification.build())
     }
 
     override fun onDestroy() {
@@ -98,5 +100,6 @@ class LocationService : Service() {
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"
         const val CHANNEL_ID = "LOCATION"
+        const val NOTIFICATION_ID = 1
     }
 }
