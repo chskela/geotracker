@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "location")
 data class Location(
     @PrimaryKey(autoGenerate = true) val uid: Long? = null,
 
@@ -12,9 +12,9 @@ data class Location(
 
     @ColumnInfo val date: String,
 
-    @ColumnInfo val latitude: Long,
+    @ColumnInfo val latitude: Double,
 
-    @ColumnInfo val longitude: Long,
+    @ColumnInfo val longitude: Double,
 
     @ColumnInfo(name = "is_send") val isSend: Boolean = false
 )
