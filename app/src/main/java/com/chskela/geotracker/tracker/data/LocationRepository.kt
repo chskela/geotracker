@@ -7,4 +7,6 @@ class LocationRepository(private val locationDao: LocationDao) {
     }
 
     fun getListLocationNotSend(): List<Location> = locationDao.getListLocationNotSend()
+
+    fun update(vararg locations: Location) = locationDao.update(*locations)
 }
