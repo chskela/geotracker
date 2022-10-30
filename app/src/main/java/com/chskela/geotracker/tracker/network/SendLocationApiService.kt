@@ -36,7 +36,7 @@ object SendLocationApi {
 }
 
 class RestApiService {
-    fun addUser(locations: List<LocationDto>, onResult: (LocationDto?) -> Unit){
+    fun sendLocation(locations: List<LocationDto>, onResult: (LocationDto?) -> Unit){
         val retrofit = retrofitService
         retrofit.sendLocation(locations).enqueue(
             object : Callback<LocationDto> {
